@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      HomePage
+    </ion-title>
+  </ion-toolbar>
+
+  <ion-segment [(ngModel)]="selectedSegment" value="AllTasks">
+
+    <ion-segment-button value="AllTasks">
+      <ion-label>All Tasks</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="PendingTasks">
+      <ion-label>Pending Tasks</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="CompletedTasks">
+      <ion-label>Completed Tasks</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+
+  <ion-searchbar *ngIf="selectedSegment == 'AllTasks' || selectedSegment == 'PendingTasks'"
+    placeholder="Search Assigned Task" [(ngModel)]="searchTask" (ionChange)="search()" (ionClear)="this.showTask()"></ion-searchbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngIf="selectedSegment === 'AllTasks'">
+    <ion-card *ngFor="let list of student; let i=index">
+      <ion-card-content>
+        <ion-card-title>Assigned by:{{list?.TeacherName}}</ion-card-title>
+        <ion-card-subtitle>Title:{{list?.Title}}</ion-card-subtitle>
+        <ion-card-content>Description:{{list?.Description}}</ion-card-content>
+        <ion-card-subtitle>TaskId:{{ list?.TaskId}}</ion-card-subtitle>
+
+        <ng-container *ngIf="list?.CompletedTask && list.CompletedTask.includes(loggedInUser.RollNo)">
+          <ion-button color="success">Completed</ion-button>
+        </ng-container>
+
+        <ng-container *ngIf="!list?.CompletedTask || !list.CompletedTask.includes(loggedInUser.RollNo)">
+          <ion-button color="warning" (click)="marktask(i)">Incomplete</ion-button>
+        </ng-container>
+
+
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSegment === 'PendingTasks'">
+    <ion-card *ngFor="let item of student">
+      <ion-card-content *ngIf="item?.CompletedTask && !item.CompletedTask.includes(loggedInUser.RollNo)">
+        <ion-card-title>Assigned by:{{item?.TeacherName}}</ion-card-title>
+        <ion-card-subtitle>Title:{{item?.Title}}</ion-card-subtitle>
+        <ion-card-content>Description:{{item?.Description}}</ion-card-content>
+        <ion-card-subtitle>StudentRollNo:{{item?.StudentRollNo}}</ion-card-subtitle>
+        <ion-card-subtitle>TaskId:{{ item?.TaskId}}</ion-card-subtitle>
+        <ion-badge color="tertiary">Pending</ion-badge>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSegment === 'CompletedTasks'">
+    <ion-card *ngFor="let items of student">
+      <ion-card-content *ngIf="items?.CompletedTask && items.CompletedTask.includes(loggedInUser.RollNo)">
+        <ion-card-title>Assigned by:{{items?.TeacherName}}</ion-card-title>
+        <ion-card-subtitle>Title:{{items?.Title}}</ion-card-subtitle>
+        <ion-card-content>Description:{{items?.Description}}</ion-card-content>
+        <ion-card-subtitle>StudentRollNo:{{items?.StudentRollNo}}</ion-card-subtitle>
+        <ion-card-subtitle>TaskId:{{ items?.TaskId}}</ion-card-subtitle>
+        <ion-badge color="success">Completed</ion-badge>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+</ion-content>

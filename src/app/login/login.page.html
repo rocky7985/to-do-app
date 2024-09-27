@@ -1,0 +1,63 @@
+<!-- login.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <ion-item>
+
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="text" formControlName="email" ></ion-input>
+
+      <ion-note slot="error"
+        *ngIf="loginForm.get('email')?.hasError('required') && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+        color="danger">
+        This field is required.
+      </ion-note>
+
+    </ion-item>
+
+    <ion-item>
+      
+      <ion-label position="floating">Password</ion-label>
+      <ion-input [type]="text" formControlName="password"></ion-input>
+
+
+      <a class="type-toggle" (click)="toggleShow()">
+
+        <ion-icon slot="end" class="show-option" (click)="changetype()"  [name]="name" ></ion-icon>
+        <!-- <ion-icon class="hide-option" (click)="changetype('text')"  name="eye-outline"></ion-icon>      -->
+        </a>
+
+      <ion-note slot="end"
+        *ngIf="loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+        color="danger">
+        Password is required.
+      </ion-note>
+    </ion-item>
+
+      <!-- <ion-note slot="end" *ngIf="loginForm.get('password')?.hasError('minlength') " color="danger">
+        Password must be at least 5 characters long.
+      </ion-note>
+
+      <ion-note slot="end" *ngIf="loginForm.get('password')?.hasError('pattern')" color="danger">
+        Password must contain at least one uppercase letter, one lowercase letter, and one number.
+      </ion-note>
+    </ion-item> -->
+    
+
+     <ion-button type="submit" expand="block" [disabled]="loginForm.invalid">Login</ion-button>
+
+    
+
+ </form>
+ <!-- <a href [routerLink]="['/home']">Go to Home</a>   -->
+
+ <a [routerLink]="['/register']">Go to Register</a>
+
+</ion-content>

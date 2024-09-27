@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/moremenu">Back</ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-card *ngFor="let list of userDetails"> -->
+<ion-card>
+    <ion-card-header>
+      Profile Details
+    </ion-card-header>
+    <ion-card-content>
+        <h1>Role:{{userDetails?.role}}</h1>
+        <h2>Name:{{userDetails?.Name}}</h2>
+        <h3>RollNo:{{userDetails?.RollNo}}</h3>
+        <h4>Email:{{userDetails?.Email}}</h4>
+        <h5>Phone:{{userDetails?.Phone}}</h5>
+        <h6>Address:{{userDetails?.Address}}</h6>
+        <!-- <p>Subject:{{userDetails?.allsubject}}</p> -->
+
+        <!-- <h7>{{userDetails?.Password}}</h7>
+         <h8>{{userDetails?.ConfirmPassword}}</h8> -->
+      <!-- <ion-button type="submit" expand="block" color="primary">Save</ion-button> -->
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-button [routerLink]="['/home']">Go to Home</ion-button>
+  <ion-button [routerLink]="['/update']">Edit</ion-button>
+
+  
+
+</ion-content>
+<!-- loadUserDetails -->

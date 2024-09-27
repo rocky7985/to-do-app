@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button default-href="/home">Back</ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        New Task
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-item>  
+
+      <ion-label>Select Student</ion-label>
+      <ion-select [(ngModel)]="selectedStudent" placeholder="Choose the Students to assign task" [multiple]="true">
+        <!-- <ng-container *ngIf="selectedStudent === '[multiple]'"> -->
+
+        <ion-select-option *ngFor="let student of students" [value]="student.RollNo">{{student.Name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" [(ngModel)]="Title"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea [(ngModel)]="Description" ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">TaskId</ion-label>
+      <ion-input type="text" [(ngModel)]="TaskId"></ion-input>
+    </ion-item>
+
+   
+  
+    <ion-button expand="block" (click)="AddTask()">Add Task</ion-button>
+    <ion-button [routerLink]="['/task']">Show Assigned Task</ion-button>  
+  
+   </ion-content>

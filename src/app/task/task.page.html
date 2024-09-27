@@ -1,0 +1,94 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/addtask">Back</ion-back-button>
+    </ion-buttons>
+    <ion-title>Teacher's Home </ion-title>
+  </ion-toolbar>
+
+  <ion-segment [(ngModel)]="selectedSegment" value="AllTasks">
+
+    <ion-segment-button value="AllTasks">
+      <ion-label>All Tasks</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="PendingTasks">
+      <ion-label>Pending Tasks</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="CompletedTasks">
+      <ion-label>Completed Tasks</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+  <ion-searchbar *ngIf="selectedSegment == 'AllTasks' || selectedSegment == 'PendingTasks'"  placeholder="Search Assigned Task" [(ngModel)]="searchTask" (ionChange)="search()" (ionClear)="AssignedTaskDetails()"></ion-searchbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngIf="selectedSegment === 'AllTasks'">
+    <!-- <ion-searchbar placeholder="Search Task" [(ngModel)]="searchTask" (ionChange)="search()"></ion-searchbar> -->
+
+    <ion-card *ngFor="let list of assignedDetails">
+      <ion-card-header>
+        AssignedTask Details
+      </ion-card-header>
+      <ion-card-content>
+
+        <ion-card-title>Title:{{list?.Title}}</ion-card-title>
+        <ion-card-content>Description:{{list?.Description}}</ion-card-content>
+        <ion-card-subtitle>StudentRollNo:{{list?.StudentRollNo}}</ion-card-subtitle>
+        <ion-card-subtitle>TaskId:{{list?.TaskId}}</ion-card-subtitle>
+        <ion-card-subtitle>CompletedTask:{{list?.CompletedTask}}</ion-card-subtitle>
+
+        <ng-container *ngIf="list?.CompletedTask && list.CompletedTask.length==list.StudentRollNo.length">
+          <ion-badge color="success">Completed</ion-badge>
+        </ng-container>
+
+        <ng-container *ngIf="!list.CompletedTask || list.CompletedTask.length < list.StudentRollNo.length">
+          <ion-badge color="danger">Not Completed</ion-badge></ng-container>
+
+          <ion-button color="dark" (click)="deletedetails(list)" >Delete Task</ion-button>
+
+        <ion-badge color="tertiary">CompletedTask:{{list.CompletedTask.length}}</ion-badge>
+        <ion-badge color="warning">IncompletedTask:{{list.StudentRollNo.length - list.CompletedTask.length}}</ion-badge>
+
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSegment === 'PendingTasks'">
+    <!-- <ion-searchbar placeholder="Search Task" [(ngModel)]="searchTask" (ionChange)="search()"></ion-searchbar> -->
+
+    <ion-card *ngFor="let list of assignedDetails; let h=index">
+      <ion-card-content *ngIf="list?.CompletedTask && list?.CompletedTask.length < list?.StudentRollNo.length">
+        <ion-card-title>Title:{{list?.Title}}</ion-card-title>
+        <ion-card-content>Description:{{list?.Description}}</ion-card-content>
+        <ion-card-subtitle>StudentRollNo:{{list?.StudentRollNo}}</ion-card-subtitle>
+        <ion-card-subtitle>TaskId:{{list?.TaskId}}</ion-card-subtitle>
+        <ion-card-subtitle>CompletedTask:{{list?.CompletedTask}}</ion-card-subtitle>
+
+        <ion-badge color="tertiary">Pending</ion-badge>
+
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSegment === 'CompletedTasks'">
+    <ion-card *ngFor="let list of assignedDetails">
+      <ion-card-content *ngIf="list?.CompletedTask && list?.CompletedTask.length==list?.StudentRollNo.length">
+        <!-- <ion-card-title>Assigned by:{{list?.TeacherName}}</ion-card-title> -->
+        <ion-card-title>Title:{{list?.Title}}</ion-card-title>
+        <ion-card-content>Description:{{list?.Description}}</ion-card-content>
+        <ion-card-subtitle>StudentRollNo:{{list?.StudentRollNo}}</ion-card-subtitle>
+        <ion-card-subtitle>TaskId:{{list?.TaskId}}</ion-card-subtitle>
+        <ion-card-subtitle>CompletedTask:{{list?.CompletedTask}}</ion-card-subtitle>
+
+        <ion-badge color="success">Completed</ion-badge>
+
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+</ion-content>

@@ -1,0 +1,110 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/profile">Back</ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!-- <ng-container let i="index"> -->
+
+  <form [formGroup]="updateForm" (ngSubmit)="updateuser()">
+
+    <ion-item>
+      <ion-label>Select Role</ion-label>
+      <ion-select formControlName="role" placeholder="Choose the Profile to Register">
+        <ion-select-option value="teacher">Teacher</ion-select-option>
+        <ion-select-option value="student">Student</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+
+      <ion-input type="text" formControlName="Name" placeholder="Enter Name "></ion-input>
+      <ion-note slot="error"
+        *ngIf="updateForm.get('Name')?.hasError('required') && (updateForm.get('Name')?.dirty || updateForm.get('Name')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Phone</ion-label>
+      <ion-input type="tel" formControlName="Phone" placeholder="Enter Phone"></ion-input>
+      <ion-note slot="error"
+        *ngIf="updateForm.get('Phone')?.hasError('required') && (updateForm.get('Phone')?.dirty || updateForm.get('Phone')?.touched)">
+        This field is required.
+      </ion-note>
+
+      <ion-note slot="end" *ngIf="updateForm.get('Phone')?.hasError('minlength') " color="danger">
+        Phone No. must be 10 numbers long.
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input type="text" formControlName="email" placeholder="Enter Email"></ion-input>
+      <ion-note slot="error"
+        *ngIf="updateForm.get('email')?.hasError('required') && (updateForm.get('email')?.dirty || updateForm.get('email')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="updateForm.value.role === 'student'">
+      <ion-label>RollNo</ion-label>
+      <ion-input type="tel" formControlName="RollNo" placeholder="Enter RollNo"></ion-input>
+      <ion-note slot="error"
+        *ngIf="updateForm.get('RollNo')?.hasError('required') && (updateForm.get('RollNo')?.dirty || updateForm.get('RollNo')?.touched)">
+        This field is required.
+      </ion-note>
+
+      <ion-note slot="end" *ngIf="updateForm.get('RollNo')?.hasError('minlength') " color="danger">
+        RollNo must be 10 numbers long.
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Address</ion-label>
+      <ion-input type="text" formControlName="Address" placeholder="Enter Address"></ion-input>
+      <ion-note slot="error"
+        *ngIf="updateForm.get('Address')?.hasError('required') && (updateForm.get('Address')?.dirty || updateForm.get('Address')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" formControlName="password" placeholder="Enter Password"></ion-input>
+      <ion-note slot="error"
+        *ngIf="updateForm.get('password')?.hasError('required') && (updateForm.get('password')?.dirty || updateForm.get('password')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Confirm Password</ion-label>
+      <ion-input type="password" formControlName="confirmPassword" placeholder="Enter confirmPassword"></ion-input>
+
+      <ion-note slot="error"
+        *ngIf="updateForm.value.password && updateForm.value.confirmPassword !== updateForm.value.password">
+        Password and Confirm Password do not match!
+      </ion-note>
+    </ion-item>
+
+    <div formArrayName="allsubject">
+      <ion-label>Subjects</ion-label>
+      <div *ngFor="let item of subjectControls; let i = index;" [formGroupName]="i">
+        <ion-item>
+          <ion-input formControlName="subject" placeholder="Subject name"></ion-input>
+          <ion-icon name="add-circle-outline" (click)="addSubject()">AddSubject</ion-icon>
+          <ion-icon name="remove-circle-outline" (click)="removeSubject(i)">RemoveSubject</ion-icon>
+
+        </ion-item>
+      </div>
+    </div>
+    <ion-button type="submit" expand="block" [disabled]="updateForm.invalid">Update</ion-button>
+
+  </form>
+
+  <a [routerLink]="['/profile']">Go to Profile</a>
+</ion-content>

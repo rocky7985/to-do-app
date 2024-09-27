@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="MoreMenu()">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>MoreMenu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-menu-toggle autoHide="false">
+
+  <ion-menu [menuId]="MoreMenu" contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>More-Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-item>
+          <ion-button slot="start" (click)="logout()">
+            <ion-label>Logout</ion-label>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-button slot="start" (click)="profile()">
+            <ion-label>Profile</ion-label>
+          </ion-button>
+        </ion-item>
+
+        <ion-item>
+          <ion-button slot="start" [routerLink]="['/register']">
+            <ion-label>Register</ion-label>
+          </ion-button>
+        </ion-item>
+
+        <ion-item *ngIf="loggedInUser().role=='teacher'">
+          <ion-button slot="start" (click)="AddTask()">
+            <ion-label>Add Task</ion-label>
+          </ion-button>
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+</ion-menu-toggle>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button default-href="/">Back</ion-back-button>
+      </ion-buttons>
+      <ion-title>moremenu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <!-- <ion-button (click)="AddTask()">Go to Add Task</ion-button>
+    <ion-button [routerLink]="['/login']">Go to Login</ion-button>
+    <ion-button [routerLink]="['/register']">Go to Register</ion-button> -->
+  </ion-content>
+</div>

@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Register
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+    <ion-item>
+      <ion-label>Select Role</ion-label>
+      <ion-select formControlName="role" placeholder="Choose the Profile to Register">
+        <ion-select-option value="teacher">Teacher</ion-select-option>
+        <ion-select-option value="student">Student</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text" formControlName="Name" placeholder="Enter Name"></ion-input>
+      <ion-note slot="error" *ngIf="registerForm.get('Name')?.hasError('required') && (registerForm.get('Name')?.dirty || registerForm.get('Name')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input type="text" formControlName="email" placeholder="Enter Email"></ion-input>
+      <ion-note slot="error" *ngIf="registerForm.get('email')?.hasError('required') && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Phone</ion-label>
+      <ion-input type="tel" formControlName="Phone" placeholder="Enter Phone"></ion-input>
+      <ion-note slot="error" *ngIf="registerForm.get('Phone')?.hasError('required') && (registerForm.get('Phone')?.dirty || registerForm.get('Phone')?.touched)">
+        This field is required.
+      </ion-note>
+
+      <ion-note slot="end" *ngIf="registerForm.get('Phone')?.hasError('minlength') || registerForm.get('Phone')?.hasError('maxlength')" color="danger">
+        Phone No. must be 10 numbers long.
+      </ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="registerForm.value.role === 'student'">
+      <ion-label>RollNo</ion-label>
+      <ion-input type="tel" formControlName="RollNo" placeholder="Enter RollNo"></ion-input>
+      <ion-note slot="error" *ngIf="registerForm.get('RollNo')?.hasError('required') && (registerForm.get('RollNo')?.dirty || registerForm.get('RollNo')?.touched)">
+        This field is required.
+      </ion-note>
+
+      <ion-note slot="end" *ngIf="registerForm.get('RollNo')?.hasError('minlength') || registerForm.get('RollNo')?.hasError('maxlength')" color="danger">
+        RollNo must be 5 numbers long.
+      </ion-note>
+    </ion-item>
+
+    <!-- <ion-item *ngIf="registerForm.value.role === 'teacher'">
+      <ion-label>TeacherId</ion-label>
+      <ion-input type="tel" formControlName="TeacherId" placeholder="Enter TeacherId"></ion-input>
+      <ion-note slot="error" *ngIf="registerForm.get('TeacherId')?.hasError('required') && (registerForm.get('TeacherId')?.dirty || registerForm.get('TeacherId')?.touched)">
+        This field is required.
+      </ion-note>
+
+      <ion-note slot="end" *ngIf="registerForm.get('TeacherId')?.hasError('minlength') || registerForm.get('TeacherId')?.hasError('maxlength')" color="danger">
+        TeacherId must be 2 numbers long.
+      </ion-note>
+    </ion-item> -->
+
+
+    <ion-item>
+      <ion-label>Address</ion-label>
+      <ion-input type="text" formControlName="Address" placeholder="Enter Address"></ion-input>
+      <ion-note slot="error" *ngIf="registerForm.get('Address')?.hasError('required') && (registerForm.get('Address')?.dirty || registerForm.get('Address')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item> 
+
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" formControlName="password" placeholder="Enter Password"></ion-input>
+      <ion-note slot="error" *ngIf="registerForm.get('password')?.hasError('required') && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Confirm Password</ion-label>
+      <ion-input type="password" formControlName="confirmPassword" placeholder="Enter confirmPassword"></ion-input>
+
+      <ion-note slot="error" *ngIf="registerForm.value.password && registerForm.value.confirmPassword !== registerForm.value.password">
+        <!-- <div *ngIf="registerForm.get('confirmPassword')?.errors?.passwordMismatch"> -->
+
+        Password and Confirm Password do not match!
+      </ion-note>
+
+      <!-- <div *ngIf="form.get('confirmPassword')?.errors?.passwordMismatch"> -->
+
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="registerForm.invalid">Register</ion-button>
+
+  </form>
+
+  <ion-button [routerLink]="['/login']">Go to Login</ion-button>
+
+</ion-content>

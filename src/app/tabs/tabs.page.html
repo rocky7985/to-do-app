@@ -1,0 +1,20 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button *ngIf="loginuser().role=='teacher'" tab="addtask" href="/tabs/addtask">
+      <ion-icon name="locate-outline"></ion-icon>
+      <ion-label>AddTask</ion-label>
+    </ion-tab-button>
+    <!-- name="triangle" -->
+    <ion-tab-button  tab="moremenu">
+      <ion-icon name="options-outline"></ion-icon>
+      <ion-label>MoreMenu</ion-label>
+    </ion-tab-button>
+    <!-- <ion-tab-button expand="block" (click)="MoreMenu()">      
+      <ion-icon aria-hidden='true' name="options-outline"></ion-icon>
+      <ion-label>More-Menu</ion-label>
+     </ion-tab-button> -->
+
+  </ion-tab-bar>
+</ion-tabs>
+<!-- (click)="More-Menu()" -->
